@@ -14,7 +14,17 @@ import io.restassured.response.Response;
 
 public class CreateUserTest extends BaseTest {
 
-	@Test
+	
+	@Test(priority = 1)
+	public void getAllUserTest() {
+		Response response = restClient.get(goRestServiceUrl, true);
+		int statuscode = response.then().log().all().extract().statusCode();
+		response.prettyPrint();
+		Assert.assertEquals(statuscode, 200);
+	}
+	
+	
+	@Test(priority = 2)
 	public void createUserTest() {
 
 		CreateUser CreateUserResource = CreateUser.builder().name("Kangna").gender("Female")
@@ -35,4 +45,6 @@ public class CreateUserTest extends BaseTest {
 		
 		
 	}
+	
+	
 }
